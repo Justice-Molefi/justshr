@@ -1,0 +1,137 @@
+*{
+    color: white;
+    overflow: hidden;
+}
+
+.container{
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel{
+    width: 20%;
+    height: 100vh;
+    background: rgb(11, 11, 11);
+}
+
+.left-panel .exit-btn{
+    background: var(--primary);
+    text-align: center;
+    margin: 10px 10px;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.left-panel .exit-btn:hover{
+    cursor: pointer;
+    background: var(--btn-hover);
+}
+
+.left-panel .description{
+    padding: 0 10px;
+    font-size: 15px;
+}
+
+.left-panel .users{
+    margin-top: 25px;
+    padding: 0 10px;
+    background: inherit;
+}
+.left-panel .users .header{
+    text-transform: uppercase;
+    background: inherit;
+    font-size: 20px;
+}
+
+.left-panel .users .separator{
+    background: rgba(255, 255, 255, 0.127);
+    height: 1px;
+    margin-bottom: 20px;
+}
+
+.left-panel .users .user{
+    background: inherit;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.018);
+    border-top: 1px solid rgba(255, 255, 255, 0.018);
+    padding: 5px 0;
+
+}
+
+.left-panel .users .user .username{
+    font-size: 18px;
+    font-weight: 200;
+    background: inherit;
+}
+
+.left-panel .users .user .email{
+    font-size: 12px;
+    font-weight: 200;
+    background: inherit;
+}
+
+.left-panel .users .user .status{
+    font-size: 10px;
+    font-weight: 200;
+    background: inherit;
+    color: rgb(0, 255, 0);
+}
+
+.left-panel .add-user{
+    display: flex;
+    flex-direction: column;
+    margin: 15px 5px;
+    background: inherit;
+}
+
+.left-panel .add-user input{
+ outline: none;
+ border: 1px solid white;
+ border-radius: 3px;
+ padding: 10px;
+ background: inherit;
+}
+
+
+.left-panel .add-user button{
+    background: var(--primary);
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+}
+
+.left-panel .add-user button:hover{
+    background: var(--btn-hover);
+    cursor: pointer;
+}
+
+.main-panel{
+    width: 80%;
+    text-align: center;
+}
+
+.main-panel .code-editor{
+    height: calc(100% - 45px);
+    width: 100%;
+    display: block;
+    text-align: left;
+}
+
+.left-panel.add-user .message{
+    font-size: 12px;
+    padding: 15px 0;
+}
+
+.left-panel .add-user .error{
+    color: red;
+    font-size: 12px;
+    padding: 5px 0;
+}
+
+.left-panel .add-user .success{
+    color: green;
+    font-size: 12px;
+    padding: 5px 0;
+}
+
+

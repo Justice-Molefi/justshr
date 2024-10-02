@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="nav-bar">
+        <div class="create-session-btn" (click)="showDialog=true">Create Session</div>
+        <div class="logout-btn">Logout</div>
+    </div>
+
+    <div class="sessions">
+        <div class="no-sessions" *ngIf="sessions.length === 0">No Sessions, click create button, to create one...</div>
+        <div class="session" *ngFor="let sess of sessions">
+            <div class="header">
+                <div class="created">{{sess.created}}</div>
+                <div class="author">{{sess.email}}</div>
+            </div>
+            
+            <div class="description">{{sess.description}}</div>
+            <div class="actions">
+                <div class="join-btn" [routerLink]="['/editor', sess.sessionId]">Join Session</div>
+                <div class="leave-btn">Leave</div>
+                <div class="edit-btn" *ngIf="sess.email === loggedInUser"><fa-icon [icon]="edit"></fa-icon></div>
+                <div class="delete-btn" *ngIf="sess.email === loggedInUser"><fa-icon [icon]="delete"></fa-icon></div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="create-session-dialog" *ngIf="showDialog">
+        <div class="form">
+            <div class="cancel" (click)="showDialog= false">x</div>
+            <div class="header">Create Session</div>
+           
+           <div class="main">
+            <form #sessionForm ="ngForm" (submit)="createSession(sessionForm)">
+                <div *ngIf="!hideAlert">
+                    <app-dismissable-alert [success]="success" [error]="!success" [message]="message" (dismissAlert)="recieveDismissEvent($event)"></app-dismissable-alert>
+                </div>
+                <label for="description">Session Description </label>
+                <textarea class="text-area" name="description" id="description" rows="10" ngModel #description="ngModel" required minlength="10"></textarea>
+                <div *ngIf="description.dirty && sessionForm.invalid">
+                    <p style="color: rgb(102, 102, 102);">Required minimum length for description is 10 characters</p>
+                </div>
+                <button [disabled]="sessionForm.invalid" [ngClass]="{'btn-disable': sessionForm.invalid}">create</button>
+            </form>
+            <div class="users">
+                <div class="header">Users</div>
+                <div class="main">
+                    <div *ngIf="sessionUsers.length === 0" class="empty-message">No Users</div>
+                    <div *ngFor="let user of sessionUsers" class="user-container">
+                        <div class="user-wrapper">
+                            <p class="username">{{user.username}}</p>
+                            <p class="email">{{user.email}}</p>
+                        </div>
+                        <div class="remove" (click)="removeUser(user)">X</div>
+                    </div>
+                </div>
+            </div>
+            <div class="add-users">
+                <input type="text" placeholder="search user by email..." [(ngModel)]="searchQuery" (ngModelChange)="onUserInputChange($event)" #search="ngModel">
+                <div class="main">
+                    <div *ngIf="search.dirty && users.length === 0">
+                        <p style="color: rgb(102, 102, 102);">No Users Found</p>
+                    </div>
+                    <div class="user-container">
+                        <div *ngFor="let user of users" class="user-wrapper" (click)="addUser(user)">
+                            <p class="username">{{ user.username }}</p>
+                            <p class="email">{{user.email}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="header">JustShr Register</div>
+
+    <form class="form" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" appPasswordMatch passwordKey="password" confirmPasswordKey="confirmPassword">
+        <div *ngIf="!hideAlert">
+            <app-dismissable-alert [success]="success" [error]="!success" [message]="message" (dismissAlert)="recieveDismissEvent($event)"></app-dismissable-alert>
+        </div>
+        <div class="input">
+            <label for="username">Username</label>
+            <input type="text" name="username" ngModel ngModel #username="ngModel" minlength="3" maxlength="25" required [ngClass]="{'input-error': username.invalid && username.touched}">
+        </div>
+        <!-- Validation Messages -->
+        <div *ngIf="username.invalid && username.touched" class="error">
+            <div *ngIf="username.hasError('required')">Username is required</div>
+            <div *ngIf="username.hasError('minlength')">Username must be at least 3 characters</div>
+            <div *ngIf="username.hasError('maxlength')">Username must not exceed 25 characters</div>
+        </div>
+        <div class="input">
+            <label for="email">Email</label>
+            <input type="email" name="email" ngModel ngModel #email="ngModel" email required [ngClass]="{'input-error': email.invalid && email.touched}">
+        </div>
+        <!-- Validation Messages -->
+         <div *ngIf="email.invalid && email.touched" class="error">
+            <div *ngIf="email.hasError('required')">Email is required</div>
+            <div *ngIf="email.hasError('email')">Please provide valid email</div>
+         </div>
+        <div class="input">
+            <label for="password">Password</label>
+            <input type="password" name="password" ngModel #password="ngModel" minlength="8" maxlength="50" required appPasswordStrength [ngClass]="{'input-error': password.invalid && password.touched}">
+        </div>
+         <!-- Validation Messages -->
+         <div *ngIf="password.touched || password.dirty" class="error">
+           <div *ngIf="password.hasError('required')">Password is required.</div>
+           <div *ngIf="!password.hasError('required')">
+                <div *ngIf="password.hasError('minlength')">Password must be at least 8 characters long.</div>
+                <div *ngIf="password.hasError('maxlength')">Password cannot exceed 50 characters</div>
+                <div *ngIf="password.hasError('lowercase')">Password must include at least one lowercase letter.</div>
+                <div *ngIf="password.hasError('uppercase')">Password must include at least one uppercase letter.</div>
+                <div *ngIf="password.hasError('number')">Password must include at least one number.</div>
+                <div *ngIf="password.hasError('special')">Password must include at least one special character.</div>
+           </div>
+          </div>
+        <div class="input">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" name="confirmPassword" ngModel ngModel #confirmPassword="ngModel" [ngClass]="{'input-error': password.valid && (confirmPassword.invalid && confirmPassword.touched)}">
+        </div>
+        <!-- Validation Message -->
+         <div *ngIf="password.valid && confirmPassword.dirty" class="error">
+            <div *ngIf="registerForm.hasError('passwordMismatch')">Passwords must match</div>
+         </div>
+        <div class="btn">
+            <button type="submit" [disabled]="registerForm.invalid" [ngClass]="{'btn-disable': registerForm.invalid}">Register</button>
+        </div>
+        <div class="btn-redirect">
+            <button routerLink="/login">Login</button>
+        </div>
+    </form>
+</div>

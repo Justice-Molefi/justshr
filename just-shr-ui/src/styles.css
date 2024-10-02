@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+
+:root {
+    --primary: rgb(0, 97, 215);
+    --secondary: rgb(255, 238, 0);
+    --btn-hover: rgb(0, 80, 178);
+    --btn-disable: rgb(91, 154, 243);
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+::-webkit-scrollbar-button {
+    background: #ccc
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    
+}
+
+.container{
+    background: black;
+    height: 100vh;
+}
+
+input{
+    background: black;
+}
+/* QUILL EDITOR  STYLES OVERRIDE */
+
+.ql-container.ql-snow{ 
+    border: none;
+}
+
+.ql-toolbar.ql-snow{
+    border: none;
+    border-bottom: 1px solid rgb(91, 91, 91);
+}
+.ql-code-block-container .ql-ui{
+    color: white;
+}
+
+.ql-code-block-container select{
+    border: 1px solid rgb(59, 59, 59);
+}

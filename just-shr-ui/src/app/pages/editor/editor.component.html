@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="left-panel">
+        <div class="exit-btn">Exit</div>
+        <div class="description">{{session?.description}}</div>
+        <div class="users">
+            <div class="header">Members</div>
+            <div class="separator"></div>
+            <div class="user" *ngFor="let member of session?.members">
+                <div class="username">{{member.username}}</div>
+                <div class="email">{{member.email}}</div>
+                <!-- <div class="status">Online</div> COMING SOON -->
+            </div>
+        </div>
+
+        <div class="add-user">
+            <input type="email" name="email" placeholder="enter user email..." ngModel #email="ngModel">
+            <div class="message" *ngIf="showMessage" [ngClass]="{'error': !messageSuccess, 'success': messageSuccess}">{{message}}</div>
+            <button (click)="addMember(email.value)">Add User</button>
+        </div>
+    </div>
+    <div class="main-panel">
+        <quill-editor [modules]="modules" class="code-editor"></quill-editor>
+    </div>
+</div>
