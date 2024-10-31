@@ -33,4 +33,12 @@ export class SessionService {
     return this.http.get(`${this.baseUrl}/search`, {params});
   }
 
+  updateDescription(sessionId: string, description: string): Observable<any>{
+    return this.http.put(`${this.baseUrl}/updateDescription/${sessionId}`, description)
+  }
+
+  deleteSession(id: string): Observable<any>{
+    return this.http.delete(`${this.baseUrl}/${id}`)
+  }
+
 }

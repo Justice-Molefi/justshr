@@ -1,6 +1,6 @@
 <div class="container">
     <div class="left-panel">
-        <div class="exit-btn">Exit</div>
+        <div class="exit-btn" routerLink="/dashboard">Exit</div>
         <div class="description">{{session?.description}}</div>
         <div class="users">
             <div class="header">Members</div>
@@ -12,13 +12,13 @@
             </div>
         </div>
 
-        <div class="add-user">
+        <div class="add-user"  *ngIf="session?.email == loggedInUser">
             <input type="email" name="email" placeholder="enter user email..." ngModel #email="ngModel">
             <div class="message" *ngIf="showMessage" [ngClass]="{'error': !messageSuccess, 'success': messageSuccess}">{{message}}</div>
             <button (click)="addMember(email.value)">Add User</button>
         </div>
     </div>
     <div class="main-panel">
-        <quill-editor [modules]="modules" class="code-editor"></quill-editor>
+        <quill-editor (onEditorCreated)="onEditorCreated($event)" [modules]="modules" class="code-editor" [(ngModel)]="editorService.content"></quill-editor>
     </div>
 </div>

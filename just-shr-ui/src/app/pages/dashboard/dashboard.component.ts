@@ -34,9 +34,13 @@ export class DashboardComponent implements OnInit{
   searchQuery: string = "";
   users: User[] = [];
   sessionUsers: User[] = [];
-  showDialog = false;
+  showDialog : boolean = false;
+  hideUpdateDialog : boolean = true;
+  hideDeleteDialog: boolean = true;
   sessions: SessionDTO[] = [];
   loggedInUser: string = "";
+  index: number | undefined;
+  sessionId: string = "";
   session: SessionRequest = {
     description: "",
     members: []
@@ -83,8 +87,45 @@ export class DashboardComponent implements OnInit{
     this.searchSubject.next(value);
   }
 
-  fetchData(val: String){
-    console.log('Fecthing data: ' + val);
+  showUpdateDescription(session: SessionDTO, index: number, form: NgForm){
+   this.hideUpdateDialog = false;
+   form.controls['description'].setValue(session.description);
+   this.index = index;
+   this.sessionId = session.sessionId;
+  }
+
+  showDeleteDialog(sessionId: string, index: number){
+    this.hideDeleteDialog = false;
+    this.sessionId = sessionId;
+    this.index = index;
+  }
+
+  deleteSession(){
+    this.sessionService.deleteSession(this.sessionId).subscribe({
+      next: () => { 
+        this.hideDeleteDialog = true
+        this.sessions.filter(session => session.sessionId != this.sessionId);
+      },
+      error: (err) => console.log("ERR DELETE: " + err)
+    })
+  }
+
+  updateDescription(form: NgForm){
+    const newDescr = form.controls['description'].value;
+    const oldDescr = this.sessions[this.index!].description;
+
+    if(newDescr != oldDescr){
+      
+      this.sessionService.updateDescription(this.sessionId, newDescr).subscribe({
+        next: () => {
+          this.hideUpdateDialog = true
+          this.sessions[this.index!].description = newDescr;
+        },
+        error: (err) => console.log("Update: " + err)
+      })
+    }else{
+      this.hideUpdateDialog = true;
+    }
   }
 
   createSession(form: NgForm){

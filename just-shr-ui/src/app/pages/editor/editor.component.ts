@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import hljs from 'highlight.js';
 import { QuillEditorComponent } from 'ngx-quill';
 import { SessionService } from '../../service/session.service';
 import { SessionDTO } from '../../dto/session-dto';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { EditorService } from '../../service/editor.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-editor',
   standalone: true,
-  imports: [FormsModule, QuillEditorComponent, NgFor, NgIf, NgClass],
+  imports: [FormsModule, QuillEditorComponent, NgFor, NgIf, NgClass, RouterLink],
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.css'
 })
@@ -21,14 +23,34 @@ export class EditorComponent implements OnInit{
   message: string = "";
   messageSuccess = false;
   showMessage: boolean = false;
+  loggedInUser: string | undefined;
 
-  constructor(private route: ActivatedRoute, private sessionService: SessionService){}
+  constructor(private route: ActivatedRoute, private sessionService: SessionService, public editorService: EditorService, private userService: UserService){}
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.sessionId = params.get('id') || "";
     })
 
     this.loadSession();
+    this.userService.getLoggedInUser().subscribe({
+      next: (value) => this.loggedInUser = value,
+      error: (err)=> console.log("ERROR LOGIN: " +err
+      )
+    })
+    this.editorService.setSessionId(this.sessionId);
+    this.editorService.connect();
+  }
+
+  ngOnDestroy(){
+    this.editorService.disconnect();
+    this.editorService.content = "";
+  }
+
+  onEditorCreated(quill: any) {
+    quill.on('text-change', () => {
+      this.editorService.publishChanges(); 
+    });
   }
 
   addMember(email: string){
@@ -59,15 +81,21 @@ export class EditorComponent implements OnInit{
 
   loadSession(){
     this.sessionService.getSession(this.sessionId).subscribe({
-      next: value => this.session = value,
+      next: value => {
+        this.editorService.content = value.content;
+        this.session = value;
+      },
       error: err => console.log("ERROR: " + err.message)
     })
   }
+
   hideMessage(){
     setTimeout(() =>{
       this.showMessage = false
     }, 3000)
   }
+
+  disconnect(){ this.editorService.disconnect()}
 
   modules = {
     syntax: {hljs}

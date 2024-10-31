@@ -118,7 +118,7 @@
 }
 
 /* DIALOG */
-.create-session-dialog{
+.create-session-dialog, .update-description-dialog, .delete-dialog{
     position: absolute;
     padding-top: 10%;
     height: 100%;
@@ -224,6 +224,20 @@
     padding-bottom: 5px;
 }
 
+.update-description-dialog form textarea{
+    resize: none;
+    outline: none;
+    border: 1px solid rgb(134, 134, 134);
+    border-radius: 3px;
+    font-size: 15px;
+    padding: 10px;
+    background: black !important;
+}
+
+.display-update-dialog{
+    display: none;
+}
+
 .users .main{
     overflow-y: scroll;
     display: flex;
@@ -305,4 +319,50 @@
 .btn-disable{
     opacity: 0.65;
     cursor: not-allowed !important;
+}
+
+.delete-container {
+    width: 20%;
+    height: 20%;
+    padding: 20px;
+    margin: auto;
+    border-radius: 3px;
+    box-shadow: rgba(70, 70, 70, 0.5) 0px 1px 3px 0px, rgba(0, 128, 255, 0.612) 0px 0px 0px 1px;
+    background-color: black;
+}
+
+.delete-container .action-buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-dialog{
+    position: absolute;
+    padding-top: 10%;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.delete-container button{
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background: var(--primary);
+}
+.delete-container button:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.delete-container .delete{
+    background-color: red;
+}
+
+.delete-container .cancel{
+    background: var(--primary);
 }

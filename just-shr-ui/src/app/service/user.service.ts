@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { text } from '@fortawesome/fontawesome-svg-core';
 import { Observable } from 'rxjs';
 
 @Injectable({

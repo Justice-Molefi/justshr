@@ -6,7 +6,7 @@
 
     <div class="sessions">
         <div class="no-sessions" *ngIf="sessions.length === 0">No Sessions, click create button, to create one...</div>
-        <div class="session" *ngFor="let sess of sessions">
+        <div class="session" *ngFor="let sess of sessions; index as i">
             <div class="header">
                 <div class="created">{{sess.created}}</div>
                 <div class="author">{{sess.email}}</div>
@@ -16,11 +16,10 @@
             <div class="actions">
                 <div class="join-btn" [routerLink]="['/editor', sess.sessionId]">Join Session</div>
                 <div class="leave-btn">Leave</div>
-                <div class="edit-btn" *ngIf="sess.email === loggedInUser"><fa-icon [icon]="edit"></fa-icon></div>
-                <div class="delete-btn" *ngIf="sess.email === loggedInUser"><fa-icon [icon]="delete"></fa-icon></div>
+                <div class="edit-btn" *ngIf="sess.email === loggedInUser" (click)="showUpdateDescription(sess,i,updateDescriptionForm)"><fa-icon [icon]="edit"></fa-icon></div>
+                <div class="delete-btn" *ngIf="sess.email === loggedInUser" (click)="showDeleteDialog(sess.sessionId,i)"><fa-icon [icon]="delete"></fa-icon></div>
             </div>
         </div>
-        
     </div>
 
     <div class="create-session-dialog" *ngIf="showDialog">
@@ -68,6 +67,35 @@
                 </div>
             </div>
            </div>
+        </div>
+    </div>
+
+    <div class="update-description-dialog" [ngClass]="{'display-update-dialog': hideUpdateDialog}">
+        <div class="form">
+            <div class="cancel" (click)="hideUpdateDialog = true">X</div>
+            <div class="header">Update Description</div>
+            <div class="main">
+                <form #updateDescriptionForm="ngForm" (ngSubmit)="updateDescription(updateDescriptionForm)">
+                    <textarea name="description" id="description" rows="10" ngModel #description="ngModel" minlength="10" required></textarea>
+                    <div *ngIf="description.invalid">
+                        <div *ngIf="description.hasError('required')" class="text-danger">description cannot be empty</div>
+                        <div *ngIf="description.hasError('minlength')" class="text-danger">description must be minimum 10 characters</div>
+                    </div>
+                    <button type="submit" [disabled]="updateDescriptionForm.invalid"  [ngClass]="{'btn-disable': updateDescriptionForm.invalid}">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="delete-dialog" [ngClass]="{'display-update-dialog': hideDeleteDialog}">
+        <div class="delete-container">
+            <div class="main">
+                <p>Are you sure you want to delete this session?</p>
+                <div class="action-buttons">
+                    <button class="cancel" (click)="hideDeleteDialog = true">Cancel</button>
+                    <button class="delete" (click)="deleteSession()">Delete</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
