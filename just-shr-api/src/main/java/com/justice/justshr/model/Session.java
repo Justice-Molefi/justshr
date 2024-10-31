@@ -17,6 +17,7 @@ public class Session {
     @Id
     private UUID uuid;
     private String description;
+    private String content;
     private String email;
     private LocalDate created;
 

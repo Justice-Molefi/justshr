@@ -48,4 +48,17 @@ public class SessionController {
         sessionService.addMember(addMemberRequest.getEmail(), addMemberRequest.getSessionId());
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Member Added Successfully", HttpStatus.CREATED.value()));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse> deleteSession(@PathVariable String id){
+        sessionService.deleteSession(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Session Deleted Successfully", HttpStatus.OK.value()));
+    }
+
+    @PutMapping("/updateDescription/{id}")
+    public ResponseEntity<ApiResponse> updateDescription(@PathVariable String id, @RequestBody String description){
+        sessionService.UpdateSessionDescription(id, description);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Session updated Successfully", HttpStatus.OK.value()));
+    }
+
 }

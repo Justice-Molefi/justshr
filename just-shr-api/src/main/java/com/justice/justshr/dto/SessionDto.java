@@ -18,6 +18,7 @@ public class SessionDto {
     String sessionId;
     String email;
     String description;
+    String content;
     LocalDate created;
     List<UserDto> members;
 }
