@@ -19,6 +19,7 @@ import { UserService } from '../../service/user.service';
 export class EditorComponent implements OnInit{
 
   sessionId: string = "";
+  newMember: String = '';
   session: SessionDTO | undefined;
   message: string = "";
   messageSuccess = false;
@@ -53,16 +54,16 @@ export class EditorComponent implements OnInit{
     });
   }
 
-  addMember(email: string){
-    if(email.length != 0){
-      this.sessionService.addMember(email, this.sessionId).subscribe({
+  addMember(){
+    if(this.newMember.length != 0){
+      this.sessionService.addMember(this.newMember, this.sessionId).subscribe({
         next: (val)=>{
           this.message = "User Added Successfully"
           this.messageSuccess = true;
           this.showMessage = true;
           this.loadSession();
           this.hideMessage();
-
+          this.newMember = '';
         },
         error: err=>{
           if(err.status == '409')

@@ -17,11 +17,13 @@ public class Session {
     @Id
     private UUID uuid;
     private String description;
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
     private String email;
     private LocalDate created;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(
             name = "session_users", // Name of the join table
             joinColumns = @JoinColumn(name = "session_id"), // Foreign key for Session

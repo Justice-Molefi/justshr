@@ -13,9 +13,9 @@
         </div>
 
         <div class="add-user"  *ngIf="session?.email == loggedInUser">
-            <input type="email" name="email" placeholder="enter user email..." ngModel #email="ngModel">
+            <input type="email" name="email" placeholder="enter user email..." [(ngModel)]="newMember">
             <div class="message" *ngIf="showMessage" [ngClass]="{'error': !messageSuccess, 'success': messageSuccess}">{{message}}</div>
-            <button (click)="addMember(email.value)">Add User</button>
+            <button (click)="addMember()">Add User</button>
         </div>
     </div>
     <div class="main-panel">

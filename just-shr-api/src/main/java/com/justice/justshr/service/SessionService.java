@@ -129,9 +129,9 @@ public class SessionService {
     }
 
     public Session updateSessionContent(String id, String content){
-        //TODO: verify user is part of the session before updating
         UUID sessionId = UUID.fromString(id);
         Optional<Session> optionalSession = sessionRepository.findById(sessionId).map(session -> {
+            //TODO: check if editing user is part of session before updating
             session.setContent(content);
             return sessionRepository.save(session);
         });
@@ -173,11 +173,8 @@ public class SessionService {
 
         return users;
     }
-
     public String authenticatedUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
     }
-
-
 }

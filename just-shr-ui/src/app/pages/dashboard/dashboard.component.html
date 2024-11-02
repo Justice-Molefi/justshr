@@ -33,9 +33,9 @@
                     <app-dismissable-alert [success]="success" [error]="!success" [message]="message" (dismissAlert)="recieveDismissEvent($event)"></app-dismissable-alert>
                 </div>
                 <label for="description">Session Description </label>
-                <textarea class="text-area" name="description" id="description" rows="10" ngModel #description="ngModel" required minlength="10"></textarea>
+                <textarea class="text-area" name="description" id="description" rows="10" ngModel #description="ngModel" required minlength="3" maxlength="500"></textarea>
                 <div *ngIf="description.dirty && sessionForm.invalid">
-                    <p style="color: rgb(102, 102, 102);">Required minimum length for description is 10 characters</p>
+                    <p style="color: rgb(102, 102, 102);">Description must be minimum 3 characters</p>
                 </div>
                 <button [disabled]="sessionForm.invalid" [ngClass]="{'btn-disable': sessionForm.invalid}">create</button>
             </form>
@@ -76,10 +76,10 @@
             <div class="header">Update Description</div>
             <div class="main">
                 <form #updateDescriptionForm="ngForm" (ngSubmit)="updateDescription(updateDescriptionForm)">
-                    <textarea name="description" id="description" rows="10" ngModel #description="ngModel" minlength="10" required></textarea>
+                    <textarea name="description" id="description" rows="10" ngModel #description="ngModel" minlength="2" maxlength="500" required></textarea>
                     <div *ngIf="description.invalid">
                         <div *ngIf="description.hasError('required')" class="text-danger">description cannot be empty</div>
-                        <div *ngIf="description.hasError('minlength')" class="text-danger">description must be minimum 10 characters</div>
+                        <div *ngIf="description.hasError('minlength')" class="text-danger">description must be minimum 3 characters</div>
                     </div>
                     <button type="submit" [disabled]="updateDescriptionForm.invalid"  [ngClass]="{'btn-disable': updateDescriptionForm.invalid}">Update</button>
                 </form>

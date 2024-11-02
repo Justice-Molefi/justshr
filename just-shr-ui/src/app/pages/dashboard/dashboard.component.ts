@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit{
     this.sessionService.deleteSession(this.sessionId).subscribe({
       next: () => { 
         this.hideDeleteDialog = true
-        this.sessions.filter(session => session.sessionId != this.sessionId);
+        this.sessions = this.sessions.filter(session => session.sessionId != this.sessionId);
       },
       error: (err) => console.log("ERR DELETE: " + err)
     })
