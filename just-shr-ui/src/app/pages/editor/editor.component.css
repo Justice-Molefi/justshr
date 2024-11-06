@@ -115,6 +115,7 @@
     width: 100%;
     display: block;
     text-align: left;
+    overflow-y: auto;
 }
 
 .left-panel.add-user .message{

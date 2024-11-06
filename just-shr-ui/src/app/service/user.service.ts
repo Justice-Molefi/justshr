@@ -19,6 +19,10 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/login`, user, {withCredentials: true})
   }
 
+  logout():Observable<any>{
+    return this.http.post(`${this.baseUrl}/logout`, null)
+  }
+
   verifyToken(): Observable<any>{
     return this.http.get(`${this.baseUrl}/verify-token`, {withCredentials: true});
   }

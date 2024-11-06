@@ -10,7 +10,7 @@ import { DismissableAlertComponent } from "../../shared/dismissable-alert/dismis
 import { SessionRequest } from '../../dto/session-request';
 import { SessionDTO } from '../../dto/session-dto';
 import { UserService } from '../../service/user.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit{
     members: []
   }
 
-  constructor(private sessionService: SessionService, private userService: UserService){
+  constructor(private sessionService: SessionService, private userService: UserService, private router: Router){
     userService.getLoggedInUser().subscribe({
       next: value => {this.loggedInUser = value; console.log("LoggedInuser: " + value)},
       error: (err) => console.log("GET LOGGED IN USER: " + err)
@@ -173,5 +173,12 @@ export class DashboardComponent implements OnInit{
   recieveDismissEvent(hideAlert: boolean){
     this.hideAlert = !hideAlert;
     console.log("WHATTTTTYA")
+  }
+
+  logout(){
+    this.userService.logout().subscribe({
+      next: () => this.router.navigate(['/login']),
+      error: () => this.router.navigate(['/login']),//peak programming right here!!! Nobody is gonna know.
+    })
   }
 }

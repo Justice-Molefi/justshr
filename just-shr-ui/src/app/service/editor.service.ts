@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import { UserService } from './user.service';
-import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
