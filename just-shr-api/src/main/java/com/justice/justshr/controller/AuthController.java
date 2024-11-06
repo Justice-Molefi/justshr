@@ -7,6 +7,7 @@ import com.justice.justshr.dto.RegisterRequest;
 import com.justice.justshr.dto.Token;
 import com.justice.justshr.service.AuthService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -41,6 +42,17 @@ public class AuthController {
             response.addCookie(cookie);
         }
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Login Successful", HttpStatus.OK.value()));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponse> logout(HttpServletResponse response){
+        Cookie cookie = new Cookie("jwt", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false); //for development purposes only
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Logout Successful", HttpStatus.OK.value()));
     }
 
     @GetMapping("/verify-token")
