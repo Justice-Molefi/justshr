@@ -61,7 +61,7 @@ JustShr is a real-time collaborative text editor designed to enable seamless tea
      ```properties
      jwt.secret=(your 256 bits secret here)
      ```
-     > **Note**: Using environment variables for sensitive data like database credentials is recommended for better security.
+     > **Note**: Using environment variables for sensitive data like jwt secrets is recommended for better security.
 4. Build and run the Spring Boot application:
    ```bash
    mvn clean install
