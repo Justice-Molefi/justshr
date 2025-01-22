@@ -129,7 +129,9 @@ JustShr is a real-time collaborative text editor designed to enable seamless tea
 - Add role-based access control.
 - Add unit and integration tests for both frontend and backend.
 - Add voice chat inside a session
-- Make use of refresh tokens on the auth layer
+- Add password reset functionality.
+- Implement email verification during sign-up.
+- Add refresh token support for extended session management.
 
 ## Contributing
 
